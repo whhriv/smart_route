@@ -42,7 +42,8 @@ const handleFormSubmit = (e) => {
   let startingLocation = start;
   const stops = fields.map((field) => field.value);
   
-  
+  // Need to permute times
+  // feed permute routes into google maps instead of stretches?
   
   const permutations = permute(stops)
   let fastestTime = Infinity
@@ -54,6 +55,7 @@ const handleFormSubmit = (e) => {
             fastestRoute = perm
           }
       })
+      console.log('fastest route', fastestRoute) //empty array
 
 
 
@@ -168,36 +170,39 @@ const handleFormSubmit = (e) => {
 export default AddRemoveStop;
 
 
-function permute(arr) {
-  const result = [];
+//MOVE TO OWN JSX ELEMENT
+//needs to record time - but should if input aligns. 
+                function permute(arr) {
+                  const result = [];
 
-  function permuteHelper(arr, start) {
-      if (start === arr.length - 1) {
-          result.push([...arr]);
-          return;
-      }
+                  function permuteHelper(arr, start) {
+                      if (start === arr.length - 1) {
+                          result.push([...arr]);
+                          return;
+                      }
 
-      for (let i = start; i < arr.length; i++) {
-          [arr[start], arr[i]] = [arr[i], arr[start]]; // Swap elements
-          permuteHelper(arr, start + 1);
-          [arr[start], arr[i]] = [arr[i], arr[start]]; // Restore original array
-      }
-  }
+                      for (let i = start; i < arr.length; i++) {
+                          [arr[start], arr[i]] = [arr[i], arr[start]]; // Swap elements
+                          permuteHelper(arr, start + 1);
+                          [arr[start], arr[i]] = [arr[i], arr[start]]; // Restore original array
+                      }
+                  }
 
-  permuteHelper(arr, 0);
-  return result;
-}
+                  permuteHelper(arr, 0);
+                  console.log('permutations', result)
+                  return result;
+                }
 
-// Function to calculate the total time for a route
-async function calculateRouteTime(origin, stops, destination) {
-  let totalTime = 0;
+                // Function to calculate the total time for a route
+                async function calculateRouteTime(origin, stops, destination) {
+                  let totalTime = 0;
 
-  
-  for (let i = 0; i < stops.length; i++) {
-      totalTime += await getRouteTime(origin, stops[i]);
-      origin = stops[i]; 
-  }
+                  
+                  for (let i = 0; i < stops.length; i++) {
+                      totalTime += await getRouteTime(origin, stops[i]);
+                      origin = stops[i]; 
+                  }
 
-  totalTime += await getRouteTime(origin, destination);
-  return totalTime;
-}
+                  totalTime += await getRouteTime(origin, destination);
+                  return totalTime;
+                }
