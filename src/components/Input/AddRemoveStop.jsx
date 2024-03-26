@@ -35,6 +35,9 @@ const AddRemoveStop = () => {
   };
 // Saves Start and Stop  Variables
 
+
+
+
 const handleFormSubmit = (e) => {
   e.preventDefault();
   setLoading(true)
@@ -104,7 +107,11 @@ const handleFormSubmit = (e) => {
       console.log('DIRECTION RESPONSES[0].request:', responses[0].request)
 
       setResponses(responses)
-      navigate('/GetDirectionsMapOver')
+      // navigate('/GetDirectionsMapOver')
+      // navigate('/MapSpace')
+      navigate('/GetDirectionsMapOver');
+
+
 
 // ORIGIN - DESTINATION
 // let dataResponse = responses
@@ -125,7 +132,7 @@ const handleFormSubmit = (e) => {
       setLoading(false)
     });
   // console.log(dataResponse)
-  navigate('/GetDirectionsMapOver');
+  // navigate('/GetDirectionsMapOver');
 };
 
 
@@ -196,13 +203,13 @@ export default AddRemoveStop;
                 // Function to calculate the total time for a route
                 async function calculateRouteTime(origin, stops, destination) {
                   let totalTime = 0;
-
-                  
+                
                   for (let i = 0; i < stops.length; i++) {
-                      totalTime += await getRouteTime(origin, stops[i]);
-                      origin = stops[i]; 
+                    totalTime += await getRouteTime(origin, stops[i]);
+                    origin = stops[i];
                   }
-
+                
                   totalTime += await getRouteTime(origin, destination);
                   return totalTime;
                 }
+                

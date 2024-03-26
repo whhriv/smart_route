@@ -54,6 +54,17 @@ function DirectionsX({ stretch, stretches }) {
 
     useEffect(() => {
         if (!directionsService || !directionsRenderer || !stretch) return;
+        
+        
+        getRouteTime(stretch.origin, stretch.destination, directionsService)
+        .then((result) => { 
+          console.log('durationtimefromNEWCODE', result)
+          return result 
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
 
         directionsService.route({
             origin: stretch.origin,
@@ -67,7 +78,7 @@ function DirectionsX({ stretch, stretches }) {
             directionsRenderer.setDirections(res);
 
             // SETS useSTATE OF ROUTES
-            console.log('ROUTES RESPONSE ', res)
+            // console.log('ROUTES RESPONSE ', res)
             setRoutes(res.routes);
             // console.log('sessionStorageData.stretch2.time', sessionStorageData.stretch2.time)
         })

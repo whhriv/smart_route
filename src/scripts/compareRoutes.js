@@ -20,8 +20,8 @@ export async function getRouteTime(start, end, directionsService) {
             sessionStorage.setItem(`${start}-${end}-duration`, JSON.stringify(durationSum));
             // sessionStorage.setItem(`${start}-${end}-minutes`, JSON.stringify(minuteSum));
 
-            console.log(`${start} to ${end} - Duration: ${durationSum} seconds`);
-            console.log(`${start} to ${end} - Minutes: ${minuteSum} minutes`);
+            // console.log(`${start} to ${end} - Duration: ${durationSum} seconds`);
+            // console.log(`${start} to ${end} - Minutes: ${minuteSum} minutes`);
 
             resolve(durationSum); // Resolve with the total duration
         })
